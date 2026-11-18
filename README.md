@@ -30,11 +30,13 @@ print("Echo Server is waiting for connection...")
 client_socket, addr = server_socket.accept() 
 print("Connected to:", addr) 
 while True: 
+
     # Receive message from client 
     data = client_socket.recv(1024).decode() 
     if not data: 
         break 
     print("Client:", data) 
+
     # Send same message back to client 
     client_socket.send(data.encode()) 
 
