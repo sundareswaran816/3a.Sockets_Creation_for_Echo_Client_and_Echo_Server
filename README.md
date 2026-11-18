@@ -9,7 +9,65 @@ Sockets Links.
  server .
 4. Send and receive the message using the send function in socket.
 ## PROGRAM
+Server:
+```
+# echo_server.py 
+import socket 
+# Create socket object 
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+# Bind the socket with host and port 
+host = '127.0.0.1' 
+port = 5000 
+server_socket.bind((host, port)) 
+# Listen for incoming connections 
+server_socket.listen(1) 
+print("Echo Server is waiting for connection...") 
+# Accept client connection 
+client_socket, addr = server_socket.accept() 
+print("Connected to:", addr) 
+while True: 
+    # Receive message from client 
+    data = client_socket.recv(1024).decode() 
+    if not data: 
+        break 
+    print("Client:", data) 
+    # Send same message back to client 
+    client_socket.send(data.encode()) 
+# Close sockets 
+client_socket.close() 
+server_socket.close()
+```
+
+Client:
+```
+# echo_client.py 
+import socket 
+# Create socket object 
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+# Connect to server 
+host = '127.0.0.1' 
+port = 5000 
+client_socket.connect((host, port)) 
+while True: 
+    # Input message 
+    message = input("Enter message: ") 
+    # Send message to server 
+    client_socket.send(message.encode()) 
+    if message.lower() == 'exit': 
+        break 
+    # Receive echoed message 
+    data = client_socket.recv(1024).decode() 
+    print("Server echoed:", data) 
+# Close socket 
+client_socket.close()
+```
 ## OUPUT
+Server:
+<img width="1492" height="946" alt="image" src="https://github.com/user-attachments/assets/3af8547b-c03f-4c45-9b79-2f9bdaaba842" />
+
+Client:
+<img width="1917" height="1018" alt="image" src="https://github.com/user-attachments/assets/43e13c60-cf46-4ffb-9001-b7ce12dd233a" />
+
 ## RESULT
 Thus, the python program for creating Echo Client and Echo Server using TCP Sockets Links 
 was successfully created and executed.
